@@ -40,7 +40,7 @@
     <!--&lt;!&ndash;    占位符名称用对象里的属性名&ndash;&gt;-->
     <!--</select>-->
 
-    <!--    条件查询 动态SQL-->
+    <!--    多条件查询 动态SQL-->
     <select id="selectByCondition" resultMap="brandResultMap">
         select * from tb_brand
         <where>
@@ -55,6 +55,26 @@
             </if>
         </where>
         <!--    占位符名称用对象里的属性名-->
+    </select>
+
+    <!--    单条件动态查询-->
+    <select id="selectBySingleCondition" resultType="com.pojo.Brand">
+        select * from tb_brand
+        <where>
+            <choose>
+                <when test="status!=null">
+                    status = #{status}
+                </when>
+                <when test="companyName!=null and companyName!=''">
+                    company_name like #{companyName}
+                </when>
+                <when test="brandName!=null and brandName!=''">
+                    brand_name like #{brandName}
+                </when>
+            </choose>
+        </where>
+
+
     </select>
 
 

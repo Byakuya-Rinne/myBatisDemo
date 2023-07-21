@@ -94,4 +94,44 @@ public class MyBatisTest {
     }
 
 
+    @Test
+    public void selectBySingleCondition() throws IOException {
+        int status = 1;
+        String companyName = "华为";
+        String brandName = "华为";
+
+        companyName = "%" + companyName + "%";
+        brandName = "%" + brandName + "%";
+
+        Brand brand = new Brand();
+
+        brand.setStatus(status);
+//        brand.setBrandName(brandName);
+//        brand.setCompanyName(companyName);
+
+        //加载mybatis核心配置文件, 获取SqlSessionFactory对象
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //获取SqlSessionFactory对象, 用它执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+
+        System.out.println("输入的内容: "+brand);
+        System.out.println("查询到的数据库内容:");
+        List<Brand> brands = brandMapper.selectBySingleCondition(brand);
+        System.out.println(brands);
+
+
+    }
+
+
 }
+
+
+
+
+
+
+
