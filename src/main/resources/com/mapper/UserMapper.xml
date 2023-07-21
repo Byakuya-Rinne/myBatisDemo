@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserMapper">
+<!--    <select id="selectAll" resultType="com.pojo.User">-->
+
+
+
+<!--    resultType别名, 在mybatis-config.xml  <typeAliases>里 -->
+    <select id="selectAll" resultType="user">
+        select * from tb_user;
+    </select>
+
+
+
+<!--    userTest-->
+
+</mapper>

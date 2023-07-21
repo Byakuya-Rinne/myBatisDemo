@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.BrandMapper">
+<!--    <select id="selectAll" resultType="com.pojo.User">-->
+
+
+    <resultMap id="brandResultMap" type="brand">
+        <result column="brand_name" property="brandName"/>
+<!--        column表的列名  property实体类的属性名-->
+        <result column="company_name" property="companyName"/>
+
+    </resultMap>
+
+<!--    resultType别名, 在mybatis-config.xml  <typeAliases>里 -->
+
+
+<!--    userTest-->
+
+<!--    <select id="selectAll" resultType="brand">-->
+<!--        select * from tb_brand;-->
+<!--    </select>-->
+
+    <select id="selectAll" resultMap="brandResultMap">
+        select * from tb_brand;
+    </select>
+
+    <select id="selectById" resultMap="brandResultMap">
+        select * from tb_brand
+        where id = #{id}
+    </select>
+
+</mapper>
