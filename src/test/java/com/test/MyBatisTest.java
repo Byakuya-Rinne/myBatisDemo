@@ -105,9 +105,9 @@ public class MyBatisTest {
 
         Brand brand = new Brand();
 
-        brand.setStatus(status);
-//        brand.setBrandName(brandName);
-//        brand.setCompanyName(companyName);
+//        brand.setStatus(status);
+        brand.setBrandName(brandName);
+        brand.setCompanyName(companyName);
 
         //加载mybatis核心配置文件, 获取SqlSessionFactory对象
         String resource = "mybatis-config.xml";
@@ -133,7 +133,7 @@ public class MyBatisTest {
         String companyName = "添加公司";
         String brandName = "添加品牌";
         String description = "添加描述";
-        int ordered = 0721;
+        int ordered = 721;
 //
 //        companyName = "%" + companyName + "%";
 //        brandName = "%" + brandName + "%";
@@ -201,7 +201,7 @@ public class MyBatisTest {
 
         brandMapper.update(brand);
 
-        System.out.println("输入的信息: " + brand);
+        System.out.println("输入更新的信息: " + brand);
         sqlSession.close();
     }
 }
