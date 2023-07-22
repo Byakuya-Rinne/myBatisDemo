@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    <settings>-->
-<!--        &lt;!&ndash; 打印查询语句 &ndash;&gt;-->
-<!--        <setting name="logImpl" value="STDOUT_LOGGING" />-->
-<!--    </settings>-->
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
 
     <typeAliases>
         <package name="com.pojo"/>
@@ -19,6 +19,7 @@
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql:///dbtest?serverTimezone=UTC"/>
+<!--                <property name="url" value="jdbc:mysql:///dbtest?serverTimezone=UTC&amp;useUnicode=TRUE&amp;characterEncoding=UTF-8&amp;useSSL=FALSE"/>-->
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>

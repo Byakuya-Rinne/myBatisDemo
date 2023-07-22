@@ -114,19 +114,96 @@ public class MyBatisTest {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //获取SqlSessionFactory对象, 用它执行sql
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
 
 
         System.out.println("输入的内容: "+brand);
-        System.out.println("查询到的数据库内容:");
         List<Brand> brands = brandMapper.selectBySingleCondition(brand);
-        System.out.println(brands);
+        System.out.println("查询到的数据库内容:"+brands);
 
 
     }
 
+    @Test
+    public void testAdd() throws IOException {
 
+
+        int status = 1;
+        String companyName = "添加公司";
+        String brandName = "添加品牌";
+        String description = "添加描述";
+        int ordered = 0721;
+//
+//        companyName = "%" + companyName + "%";
+//        brandName = "%" + brandName + "%";
+//        description = "%" + description + "%";
+
+        Brand brand = new Brand();
+        brand.setStatus(status);
+        brand.setBrandName(brandName);
+        brand.setCompanyName(companyName);
+        brand.setDescription(description);
+        brand.setOrdered(ordered);
+
+        //加载mybatis核心配置文件, 获取SqlSessionFactory对象
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //获取SqlSessionFactory对象, 用它执行sql. true: 自动提交事务 false:手动
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
+
+        BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+//        List<Brand> brands = brandMapper.selectByCondition(status,companyName,brandName);
+         brandMapper.add(brand);
+         Integer id = brand.getId();
+        System.out.println("id: " + id);
+//        List<Brand> brands = brandMapper.selectByCondition(map);
+        //提交事务
+//        sqlSession.commit();
+
+
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void testUpdateAll() throws IOException {
+
+
+        int status = 2;
+        String companyName = "更新";
+        String brandName = "更新品牌";
+        int id = 3;
+        int ordered = 888;
+        String description = "更新描述";
+
+//        companyName = "%" + companyName + "%";
+        //brandName = "%" + brandName + "%";
+
+        Brand brand = new Brand();
+        brand.setStatus(status);
+        brand.setBrandName(brandName);
+        brand.setCompanyName(companyName);
+        brand.setId(id);
+        brand.setOrdered(ordered);
+        brand.setDescription(description);
+
+        //加载mybatis核心配置文件, 获取SqlSessionFactory对 象
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //获取SqlSessionFactory对象, 用它执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+        brandMapper.update(brand);
+
+        System.out.println("输入的信息: " + brand);
+        sqlSession.close();
+    }
 }
 
 

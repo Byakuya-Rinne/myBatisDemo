@@ -23,5 +23,7 @@ public interface BrandMapper {
     //单条件动态查询
     List<Brand> selectBySingleCondition(Brand brand);
 
+    void add(Brand brand);
 
+    void update(Brand brand);
 }
