@@ -80,18 +80,42 @@
         </where>
     </select>
 
-<!--    更新全部数据-->
+    <!--    更新数据-->
     <update id="update">
         update tb_brand
-        set
-        brand_name = #{brandName},
-        company_name = #{companyName},
-        ordered = #{ordered},
-        description = #{description},
-        status = #{status}
+        <set>
+            <if test="brandName!=null and brandName!=''">
+                brand_name = #{brandName},
+            </if>
+            <if test="companyName!=null and companyName!=''">
+                company_name = #{companyName},
+            </if>
+            <if test="ordered!=null">
+                ordered = #{ordered},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+            <if test="status!=null">
+                status = #{status}
+            </if>
+        </set>
         where
         id = #{id};
     </update>
 
+    <delete id="deleteById">
+        delete from tb_brand where id = #{id};
+    </delete>
+
+<!--    mapper类传来的数组会被封装成map集合, 默认key:array. value:这个数组-->
+    <delete id="deleteByIds">
+        delete from tb_brand where id
+        in (
+            <foreach collection="array" item="id" separator=","> <!--分隔符: separator=","-->
+                #{id}
+            </foreach>
+        )
+    </delete>
 
 </mapper>

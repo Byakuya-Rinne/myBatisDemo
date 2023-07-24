@@ -26,4 +26,15 @@ public interface BrandMapper {
     void add(Brand brand);
 
     void update(Brand brand);
+
+    void deleteById(int id);
+
+
+//    <!--    mapper类传来的数组会被封装成map集合, 默认key:array. value:这个数组-->
+void deleteByIds(int[] ids);
+
+//     把map集合的key设置为ids, 在xml中就可以直接用数组名称ids
+//    void deleteByIds(@Param("ids") int[] ids);
+
+
 }

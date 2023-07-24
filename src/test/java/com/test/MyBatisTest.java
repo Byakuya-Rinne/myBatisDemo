@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,13 +171,12 @@ public class MyBatisTest {
 
 
     @Test
-    public void testUpdateAll() throws IOException {
-
+    public void testUpdate() throws IOException {
 
         int status = 2;
-        String companyName = "更新";
-        String brandName = "更新品牌";
-        int id = 3;
+        String companyName = "添加公司";
+        String brandName = "添加品牌";
+        int id = 14;
         int ordered = 888;
         String description = "更新描述";
 
@@ -184,12 +184,12 @@ public class MyBatisTest {
         //brandName = "%" + brandName + "%";
 
         Brand brand = new Brand();
-        brand.setStatus(status);
-        brand.setBrandName(brandName);
+//        brand.setStatus(status);
+//        brand.setBrandName(brandName);
         brand.setCompanyName(companyName);
         brand.setId(id);
         brand.setOrdered(ordered);
-        brand.setDescription(description);
+//        brand.setDescription(description);
 
         //加载mybatis核心配置文件, 获取SqlSessionFactory对 象
         String resource = "mybatis-config.xml";
@@ -204,6 +204,50 @@ public class MyBatisTest {
         System.out.println("输入更新的信息: " + brand);
         sqlSession.close();
     }
+
+
+
+    @Test
+    public void deleteByIdTest() throws IOException {
+        int id = 3;
+
+        Brand brand = new Brand();
+        brand.setId(id);
+
+        //加载mybatis核心配置文件, 获取SqlSessionFactory对 象
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //获取SqlSessionFactory对象, 用它执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+
+        brandMapper.deleteById(id);
+
+        System.out.println("删除的id为: " + id);
+        sqlSession.close();
+    }
+
+    @Test
+    public void deleteByIds() throws IOException {
+        int[] ids ={4,12,13};
+
+        //加载mybatis核心配置文件, 获取SqlSessionFactory对 象
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //获取SqlSessionFactory对象, 用它执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+
+        brandMapper.deleteByIds(ids);
+
+        System.out.println("删除的id为: " + Arrays.toString(ids));
+        sqlSession.close();
+    }
+
 }
 
 
